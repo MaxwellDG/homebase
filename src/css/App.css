@@ -1,0 +1,83 @@
+.App {
+  position: relative;
+}
+
+#mainBlock{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: green;
+  height: 500px;
+  width: 100%;
+  border-style: solid;
+}
+
+#mainBlockContainer{
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+
+}
+
+/* Weather */
+
+
+
+
+
+
+/* Nav */
+
+.active{
+  background: lightgoldenrodyellow;
+}
+
+#navButtonContainer{
+  float: left;
+  list-style: none;
+  padding: 0px;
+}
+
+.navButton{
+  float: right;
+  font-size: larger;
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+
+/* Options */
+
+#optionsContainer{
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+.optionX{
+  float: right;
+}
+
+.optionX :hover{
+  cursor: pointer;
+}
+
+.optionAdd{
+  float: right;
+}
+
+.optionTypeText{
+  background-color: grey;
+  font-size: 24px;
+  margin: 0px 0px 0px 0px;
+} 
+
+.optionContents{
+  min-height: 100px;
+  background-color: antiquewhite;
+}
+
+.optionImageBox{
+  height: 100px;
+}
