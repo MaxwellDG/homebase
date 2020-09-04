@@ -3,13 +3,15 @@
 }
 
 #mainBlock{
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: green;
-  height: 500px;
+  background: rgba(25, 25, 25, 0.7);
+  border: 1px solid black;
   width: 100%;
-  border-style: solid;
+  border-radius: 5px;
+  min-height: 400px;
 }
 
 #mainBlockContainer{
@@ -22,16 +24,45 @@
 
 /* Weather */
 
+#weatherContainer{
+  display: inline-flex;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 25px;
+  background-color: rgba(25, 25, 25, 0.7);
+  margin: 15px 0px 0px 15px;
+  border-radius: 5px;
+}
 
+#weatherNumbers{
+  display: flex;
+  color: white;
+  justify-content: space-evenly;
+}
+
+#weatherContainer p{
+  color: white;
+  text-align: center;
+  margin: 10px 5px 0px 5px;
+}
+
+#weatherContainer img{
+  width: 126px;
+  margin: auto;
+}
+
+.weatherLabels{
+  margin: 15px;
+}
+
+.weatherBigText{
+  font-size: 24px;
+}
 
 
 
 
 /* Nav */
-
-.active{
-  background: lightgoldenrodyellow;
-}
 
 #navButtonContainer{
   float: left;
@@ -41,10 +72,31 @@
 
 .navButton{
   float: right;
-  font-size: larger;
   margin-right: 10px;
-  text-decoration: none;
 }
+
+.navButton img{
+  width: 64px;
+  padding: 10px;
+}
+
+.navButton button :hover{
+  cursor: pointer;
+}
+
+.navButton button{
+  border-radius: 35px;
+}
+
+.active button{
+  background: rgba(25, 25, 25, 0.7);
+}
+
+
+
+
+
+
 
 
 /* Options */
@@ -56,28 +108,104 @@
 }
 
 .optionX{
-  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-style: none;
+  background: none;
+  padding: 10px;
+  color: white;
 }
 
 .optionX :hover{
   cursor: pointer;
 }
 
+.optionImageBox{
+  position: relative;
+}
+
 .optionAdd{
-  float: right;
+  display: block;
+  margin: 0px 0px 10px 0px;
+  background: none;
+  border-style: none;
+}
+
+.optionAdd a{
+  text-align: right;
+  color: white;
+}
+
+#optionsContainer{
+  width: 80%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding: 0px;
+}
+
+#optionsContainer li{
+  margin: 0px 5px 0px 5px;
 }
 
 .optionTypeText{
   background-color: grey;
   font-size: 24px;
   margin: 0px 0px 0px 0px;
+  padding: 5px 10px 5px 10px;
 } 
 
 .optionContents{
   min-height: 100px;
-  background-color: antiquewhite;
+  background-color: rgba(232, 232, 232, 0.6);
+  padding: 15px 0px 15px 0px;
+  border-bottom-left-radius: 10px;
 }
 
-.optionImageBox{
-  height: 100px;
+.optionBoxTotal{
+  -webkit-box-shadow: 10px 10px 12px 0px rgba(0,0,0,0.27);
+  -moz-box-shadow: 10px 10px 12px 0px rgba(0,0,0,0.27);
+  box-shadow: 10px 10px 12px 0px rgba(0,0,0,0.27);
+  text-align: center;
+}
+
+.optionBoxTotal :hover{
+  cursor: pointer;
+}
+
+.optionBoxTotal img{
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+
+.optionLocationItems{
+  display: block;
+  margin-right: 5px;
+  text-align: left;
+}
+
+/* Account Block */ 
+
+#account-flexbox-container{
+  color: white;
+}
+
+.accountHeaders{
+  display: inline-block;
+  color: white;
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+}
+
+/* Forms */
+
+#createNewOption{
+  text-align: center;
+}
+
+.formField{
+  margin: 5px 10px 5px 0px;
 }

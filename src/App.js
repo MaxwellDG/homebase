@@ -3,8 +3,8 @@ import './css/App.css';
 import NavBar from "./containers/navBar"
 import MainBlock from "./containers/mainBlock"
 import WeatherContainer from './containers/weatherContainer'
-
 import { BrowserRouter } from 'react-router-dom'
+import AddOptionContainer from './containers/addOptionContainer';
 
 
 class App extends React.Component {
@@ -17,12 +17,13 @@ class App extends React.Component {
       <div className="App">
             <BrowserRouter>
                 <WeatherContainer />
+                <AddOptionContainer />
                 <div id="mainBlockContainer">
                   <NavBar />
                   <MainBlock />
                 </div>
             </BrowserRouter>
-        </div>
+      </div>
     );
   }
 }

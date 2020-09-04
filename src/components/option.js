@@ -2,33 +2,42 @@ import React from 'react'
 
 export default class Option extends React.Component{
 
+    constructor(props){
+        super(props)
+        this.createWindows = this.createWindows.bind(this)
+    }
+
+    createWindows(urls){
+        urls.forEach(element => {
+            window.open("http://www." + element, "_blank")
+        });
+    }
+
     render(){
+        const { imageSrc, createDeleteWindow, createAddWindow, type, urls } = this.props
 
-        const { imageAlt, imageSrc, createDeleteWindow, createAddWindow, type } = this.props
-
+        const optionUrls = urls.map((url, index) => 
+        (
+            <li key={ index }>
+                <a>{ url }</a>
+            </li>
+        ))
 
         return(
-            <div>
+            <div className="optionBoxTotal" onClick={ () => this.createWindows(urls) }>
                 <div className="optionImageBox">
-                    <image className="optionImage" alt={ imageAlt } src={ imageSrc }></image>
+                    <img className="optionImage" alt="img_alt" src={ imageSrc }></img>
                     <button className="optionX" onClick={ createDeleteWindow }>X</button>
+                    <p className="optionTypeText">{ type }</p>
                 </div>
-                <p className="optionTypeText">{ type }</p>
                 <div className="optionContents">
-                    <span><button className="optionAdd" onClick={ createAddWindow }>+</button></span>
+                    <span style={{textAlign: "right", display: "block"}}><button className="optionAdd" onClick={ createAddWindow }><a>+</a></button></span>
+                    <ul className="optionLocationItems">
+                        { optionUrls }
+                    </ul>
                     { this.props.children }
                 </div>
-
             </div>
         )
     }
 }
-
-/* function aDestination(url, text){
-    return(
-        <div>
-            <a href={ url } taget="_blank" ref="noopener noreferrer">{ text }</a>
-        </div>
-    )
-} */
-

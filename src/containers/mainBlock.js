@@ -1,33 +1,31 @@
 import React from 'react'
-import Option from '../components/option'
-import { defaultOptions } from '../data/defaultOptions'
 import { connect } from "react-redux"
 import * as ActionTypes from '../actions/action'
+import SectionHome from '../containers/sectionHome'
+import { Route, Switch } from 'react-router-dom'
+import Section404 from '../components/section404'
+import SectionAccount from '../containers/secitonAccount'
 
 class MainBlock extends React.Component{
 
     render(){
 
-        const startingOptions = defaultOptions.map((option, index) => 
-                <li key={ index }>
-                    <Option imageAlt={ option.optionImageAlt } imageSrc={ option.optionImageSrc } type={ option.optionType }></Option>
-                </li>
-            )
-
         return(
             <div id="mainBlock">
-                <ul id="optionsContainer">
-                    { startingOptions }
-                </ul>    
+                <Switch>
+                    <Route exact path='/account' render={ () => <SectionAccount />}/>
+                    <Route exact path='/' render={ () =>  <SectionHome /> }/>
+                    <Route component={ Section404 }/>
+                </Switch>
             </div>
         )
-
     }
-
 }
 
 function mapStateToProps(state){
     return({
+        userLoggedIn: state.userLoggedIn,
+        location: state.location,
         defaultOptions: state.weather
     })
 }

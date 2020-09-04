@@ -1,61 +1,57 @@
 import * as ActionTypes from '../actions/action'
-import axios from 'axios'
 
 const initialState = {
+    userLoggedIn: null,
     loading: true,
-    weather: {
-        weatherTime: 0,
-        weatherAlt: "img_none",
-        weatherImage: "images/up-arrow.png",
-        weatherDescription: "Cloudy with a chance of meatballs",
-        weatherLocation: "43.6529,-79.3849",
-        weatherTemperature: 0,
-        weatherPrecipitationChance: "0%",
-        weatherWind: "0 km/h"
-    },
-    defaultOptionStates: {
-        work: false,
-        news: false,
-        games: false,
-        socials: false,
-        hobbies: false
-    }
+    weather: {},
+    location: [],
+    options:[
+        {
+            name: "Socials",
+            urls: ["youtube.com", "instagram.com", "facebook.com"],
+            imgSrc: "images/like.png"
+        },
+        {
+            name: "News",
+            urls: ["youtube.com", "nationalpost.com", "globeandmail.com"],
+            imgSrc: "images/megaphone.png"
+        },
+        {
+            name: "Work",
+            urls: ["gmail.com", "hotmail.com", "duckduckgo.com"],
+            imgSrc: "images/bag.png"
+        },
+        {
+            name: "Interests",
+            urls: ["kurzgesagt.com", "deviantart.com", "etsy.com"],
+            imgSrc: "images/paintbrush.png"
+        },
+        {
+            name: "Bills",
+            urls: ["fido.ca", "enercare.com", "simplii.com", "pcfinancial.com"],
+            imgSrc: "images/money.png"
+        }
+    ]
 }
-
-function getWeatherIcon(iconDescription){
-    switch(iconDescription){
-        case "clear-day":
-            return "images/bag.png"
-        default:
-            return "images/bag.png"     
-    }
-}
-
 
 export default function SettingsReducer(prevState=initialState, actionObj){
+    let newState = {...prevState}
     switch(actionObj.type){
         case ActionTypes.GET_WEATHER:
-            let newState = axios.get(`/weather/${actionObj.lat}/${actionObj.long}`) 
-                .then(responseData => {
-                    const newData = responseData.data
-                    const newWeatherObj = {
-                        weatherTime: newData.currently.time,
-                        weatherAlt: "img_weather",
-                        weatherImage: getWeatherIcon(newData.currently.icon),
-                        weatherDescription: newData.currently.summary,
-                        weatherLocation: newData.timezone,
-                        weatherTemperature: newData.currently.temperature,
-                        weatherPrecipitationChance: newData.currently.precipProbability,
-                        weatherWind: newData.currently.windSpeed
-                    }
-                    let newWeatherState = Object.assign({}, prevState)
-                    newWeatherState.weather = newWeatherObj
-                    newWeatherState.loading = false
-                    return newWeatherState
-                })
-                .catch(error => console.log("Client side - Error was: " + error.toString())) 
+            console.log("Reducer returned: GET_WEATHER")
+            newState.weather = actionObj.weather
             return newState
+        case ActionTypes.SET_USER:
+            console.log("Reducer returned: SET_USER")
+            newState.userLoggedIn = actionObj.username
+            newState.location = actionObj.location
+            return newState
+        case ActionTypes.SET_LOADING:
+            console.log("Reducer returned: SET_LOADING")
+            newState.loading = actionObj.bool
+            return newState    
         default:
+            console.log("Reducer returned: DEFAULT")
             return prevState
     }
 }

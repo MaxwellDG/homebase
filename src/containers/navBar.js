@@ -7,9 +7,8 @@ class NavBar extends Component{
         return(
             <span>
                 <ol id="navButtonContainer">
-                    <NavButton text="Settings" path="/about" />
-                    <NavButton text="Data" path="/account"/>    
-                    <NavButton text="Home" path="/data"/>    
+                    <NavButton img="images/icons8-settings-128.png" path="/account" />
+                    <NavButton img="images/icons8-home-128.png" path="/"/>    
                 </ol> 
             </span>
         )}
