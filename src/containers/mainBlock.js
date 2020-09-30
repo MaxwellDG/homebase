@@ -24,9 +24,8 @@ class MainBlock extends React.Component{
 
 function mapStateToProps(state){
     return({
-        userLoggedIn: state.userLoggedIn,
-        location: state.location,
-        defaultOptions: state.weather
+        user: state.userReducer.userLoggedIn,
+        display: state.displayReducer.displayedPage
     })
 }
 

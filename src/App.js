@@ -4,7 +4,8 @@ import NavBar from "./containers/navBar"
 import MainBlock from "./containers/mainBlock"
 import WeatherContainer from './containers/weatherContainer'
 import { BrowserRouter } from 'react-router-dom'
-import AddOptionContainer from './containers/addOptionContainer';
+import AddCollectionContainer from './containers/addCollectionContainer';
+import Title from './components/title'
 
 
 class App extends React.Component {
@@ -13,15 +14,19 @@ class App extends React.Component {
   /* Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> */
 
   render(){
+
     return (
       <div className="App">
             <BrowserRouter>
-                <WeatherContainer />
-                <AddOptionContainer />
-                <div id="mainBlockContainer">
-                  <NavBar />
-                  <MainBlock />
-                </div>
+            <div id="topBlockContainer">
+              <WeatherContainer />
+              <Title />
+              <AddCollectionContainer />
+              </div>
+            <div id="mainBlockContainer">
+              <NavBar />
+              <MainBlock />
+            </div>                
             </BrowserRouter>
       </div>
     );

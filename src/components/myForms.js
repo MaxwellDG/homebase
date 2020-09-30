@@ -4,37 +4,35 @@ export default class MyForms extends React.Component{
 
     render(){
         return(
-            <div id={ this.props.formId }> 
-                <ErrorsDisplay errors={ this.props.errors } />
-                <form onSubmit={ this.props.submission  } >
+                <form onSubmit={ this.props.submission  } id={ this.props.formId } >
+                    <ErrorsDisplay errors={ this.props.errors } />
                     { this.props.elements() }
-                    <div className="formButtonsContainer">
-                        <button className="buttonSubmit" type="submit"> { this.props.submitText } </button>
-                    </div>
+                    <input type="submit" className="submitButtons" value={ this.props.submitText }/>
                 </form>
-            </div>
         )
     }
 }
 
 
-function ErrorsDisplay({ errors }) {
-    let errorsDisplay = null;
-    
-    if (errors.length) {
-      errorsDisplay = (
-        <div>
-          <h2 className="validation--errors--label">Validation errors</h2>
-          <div className="validation-errors">
-            <ul>
-              {errors.map((error, i) =>
-                <li key={i}>{error}</li>
-               )}
-            </ul>
-          </div>
-        </div>
-      );
+function ErrorsDisplay(errors) {
+
+  let currentError = []
+  const errorsArray = Object.values(errors.errors)
+  errorsArray.forEach((value, index) => {
+    if(value.length > 0){
+      currentError = [value]
     }
-  
-    return errorsDisplay;
+  })
+
+  let errorsDisplay = null;
+  errorsDisplay = (
+      <div className="validation-errors-container" >       
+          <ul>
+            <li key={0}>{currentError}</li>
+          </ul>
+      </div>
+    )
+  return errorsDisplay;
   }
+  
+  /* style={{visibility: currentError.length > 0 ? "visible" : "hidden"}} */

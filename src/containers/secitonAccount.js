@@ -4,40 +4,82 @@ import Login from '../components/login'
 import Signup from '../components/signup'
 import { connect } from 'react-redux'
 import * as ActionTypes from '../actions/action'
+import GoogleMaps from '../components/googlemaps'
+import axios from 'axios'
 
 class SectionAccount extends React.Component{
 
     constructor(props){
         super(props)
+        this.state = {
+            lat: parseFloat(this.props.location.lat), 
+            lng: parseFloat(this.props.location.lng)
+        }
         this.handleLogout = this.handleLogout.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.handleCoordChange = this.handleCoordChange.bind(this)
+    }
+
+    handleChange(event){
+        const { name, value } = event.target
+        this.setState({
+            [name]: value
+        })
+    }
+
+    handleCoordChange(coords){
+        console.log(coords)
+        this.setState({
+            lat: coords.latLng.lat(),
+            lng: coords.latLng.lng()
+        })
+    }
+
+    handleSetLocation(){
+        axios.post(`/weather/${this.props.user}/${this.state.lat}/${this.state.lng}`)
+        .then(response => {
+            if(response.status === 200){
+                this.props.fetchGetWeather(response.data.location)
+                this.props.setLocation({lat: response.data.location.lat, lng: response.data.location.lng})
+                localStorage.setItem('location', JSON.stringify(response.data.location))
+            }
+        }).catch(reason => {
+            console.log(reason)
+        })
     }
 
     handleLogout(){
-        this.props.setUser(null, [])
+        this.props.setUser(null, [], [])
+        this.props.setUserCollections(null)
+        this.props.setCollectionUrls(null)
+        localStorage.clear()
     }
 
+
     render(){
-        if(this.props.userLoggedIn !== null) {
+        if(this.props.user !== null) {
             return(
-                /* a map interface to set the location you want */
                 <div id="settingsLoggedInBlock">
-                    <p>Map Goes Here </p>
-                    <button onClick={ this.handleLogout }>Log Out</button>
+                    <div>
+                        <h1 className="accountHeaders">Set your Location</h1>
+                        <GoogleMaps coords={ {lat: this.state.lat, lng: this.state.lng} } coordChange={ this.handleCoordChange }/>
+                        <input className="coordInput" type="text" name="lat" value={ this.state.lat } onChange={ this.handleChange } readOnly={ true }></input>
+                        <input className="coordInput" type="text" name="lng" value={ this.state.lng } onChange={ this.handleChange } readOnly={ true }></input>
+                        <button className="submitButtons" id="submitLocationButton" onClick={ () => this.handleSetLocation() }>Set Location</button>
+                    </div>
+                    <button className="accountHeaders" id="logoutButton" onClick={ this.handleLogout }>Log Out</button>
                 </div>
             )
         } else {
             return(
-                <div id="account-flexbox-container">
-                    <div id="account-flexbox-item1">
+                <div className="accountFlexboxes">
+                    <div className="accountFlexbox">
                         <h1 className="accountHeaders">Login</h1>
                         <Route component={ Login } />
                     </div>
-
-                    <div id="account-flexbox-item2">
+                    <div className="accountFlexbox">
                         <h1 className="accountHeaders">Create Account</h1>
                         <Route component={ Signup } />
-                        <p id="accountDisclaimer">*No phone number, no postal code, no need to know your mother's maiden name<br></br>
-                        An account will simply allow you to post your jokes and review feedback numbers. An email will enable lost-password retreival</p>
                     </div>
                 </div>
         )
@@ -47,13 +89,18 @@ class SectionAccount extends React.Component{
 
 function mapStateToProps(state){
     return{
-        userLoggedIn: state.userLoggedIn
+        user: state.userReducer.userLoggedIn,
+        location: state.userReducer.location
     }
 }
 
 function mapDispatchToProps(dispatch){
     return{
-        setUser: (username, location) => dispatch(ActionTypes.setUser(username, location))
+        setUser: (username, location) => dispatch(ActionTypes.setUser(username, location)),
+        setLocation: (location) => dispatch(ActionTypes.setLocation(location)),
+        setUserCollections: (collections) => dispatch(ActionTypes.setUserCollections(collections)),
+        setCollectionUrls: (urls) => dispatch(ActionTypes.setCollectionUrls(urls)),
+        fetchGetWeather: (coords) => dispatch(ActionTypes.fetchGetWeather(coords))
     }
 }
 

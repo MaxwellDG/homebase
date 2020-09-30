@@ -2,8 +2,14 @@ import axios from 'axios'
 
 export const GET_WEATHER = "action/getWeather"
 export const SET_USER = "action/setUser"
+export const SET_LOCATION = "action/setLocation"
+export const SET_USER_COLLECTIONS ="action/setUserCollections"
+export const SET_COLLECTION_URLS = "action/setCollectionUrls"
 export const SET_LOADING = "action/setLoading"
 export const FETCH_GETWEATHER = "action/fetchGetWeather"
+export const ADD_URL = "action/addUrl"
+export const MINUS_URL = "action/minusUrl"
+export const DISPLAY_ADD_COLLECTION = "action/displayAddCollection"
 
 export const getWeather = (weather) => {
     return {
@@ -12,9 +18,9 @@ export const getWeather = (weather) => {
     }
 }
 
-export const fetchGetWeather = (lat, long) => {
+export const fetchGetWeather = (coords) => {
     return (dispatch) => {
-    axios.get(`/weather/${lat}/${long}`)
+    axios.get(`/weather/${coords.lat}/${coords.lng}`)
          .then(response => {
             const data = response.data
             const weatherObj = {
@@ -35,19 +41,67 @@ export const fetchGetWeather = (lat, long) => {
     }    
 }
 
-export const setLoading = (bool) => {
+export const addUrl = (url, name, index) => {
+    return{
+        type: ADD_URL,
+        url,
+        name,
+        index
+    }
+}
+
+export const minusUrl = (url, name, index) => {
+    return{
+        type: MINUS_URL,
+        url,
+        name,
+        index
+    }
+}
+
+export const setLoading = (loading) => {
     return {
         type: SET_LOADING,
-        bool
+        loading
     }
 }
     
 
-export const setUser = (username, location) => {
+export const setUser = (username, location, bool) => {
+    console.log(location)
     return{
         type: SET_USER,
         username,
+        location,
+        bool
+    }
+}
+
+export const setLocation = (location) => {
+    return{
+        type: SET_LOCATION,
         location
+    }
+}
+
+export const setUserCollections = (newCollections) => {
+    return{
+        type: SET_USER_COLLECTIONS,
+        newCollections
+    }
+}
+
+export const setCollectionUrls = (urls) => {
+    return{
+        type: SET_COLLECTION_URLS,
+        urls
+    }
+}
+
+export const displayAddCollection = (boolean) => {
+    return{
+        type: DISPLAY_ADD_COLLECTION,
+        boolean
     }
 }
 

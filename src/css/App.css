@@ -1,15 +1,67 @@
+/* General */
+
+html{
+  background: url(/images/3452442.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+button{
+  outline:none;
+}
+
+button:hover{
+  cursor: pointer;
+}
+
+label {
+  display: inline-block;
+  width: 120px;
+  text-align: right;
+}
+
+input{
+  margin: 5px 5px 0px 0px;
+}
+
 .App {
   position: relative;
 }
 
-#mainBlock{
-  position: relative;
+#topBlockContainer{
   display: flex;
-  align-items: center;
+}
+
+#titleBox{
+  display: inline-block;
+  width: 50%;
+  margin: 25px 0px 0px 150px;
+}
+
+#titleTop{
+  display: block;
+  color: rgb(1, 119, 133);
+  font-size: 100px;
+  margin: 0px;
+}
+
+#titleBottom{
+  display: block;
+  float: right;
+  color: white;
+  font-size: 60px;
+  margin: 0px;
+  -webkit-text-stroke: 2px rgb(1, 119, 133);
+}
+
+#mainBlock{
+  display: flex;
   justify-content: center;
+  align-items: center;
   background: rgba(25, 25, 25, 0.7);
   border: 1px solid black;
-  width: 100%;
   border-radius: 5px;
   min-height: 400px;
 }
@@ -19,18 +71,17 @@
   margin: auto;
   display: flex;
   flex-direction: column;
-
 }
 
 /* Weather */
 
 #weatherContainer{
-  display: inline-flex;
-  flex-direction: column;
+  display: inline-block;
+  text-align: center;
   border: 1px solid black;
-  padding: 25px;
+  padding: 5px;
   background-color: rgba(25, 25, 25, 0.7);
-  margin: 15px 0px 0px 15px;
+  margin: 15px;
   border-radius: 5px;
 }
 
@@ -47,16 +98,17 @@
 }
 
 #weatherContainer img{
-  width: 126px;
+  width: 75px;
   margin: auto;
 }
 
 .weatherLabels{
-  margin: 15px;
+  text-align: center;
+  margin: 5px;
 }
 
 .weatherBigText{
-  font-size: 24px;
+  font-size: 18px;
 }
 
 
@@ -65,14 +117,16 @@
 /* Nav */
 
 #navButtonContainer{
-  float: left;
   list-style: none;
   padding: 0px;
 }
 
 .navButton{
-  float: right;
+  float: left;
   margin-right: 10px;
+  outline: none;
+  background: transparent;
+  border: 5px solid transparent;
 }
 
 .navButton img{
@@ -80,15 +134,27 @@
   padding: 10px;
 }
 
-.navButton button :hover{
-  cursor: pointer;
-}
-
 .navButton button{
-  border-radius: 35px;
+  background: transparent;
+  box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  border-radius: 5px;
 }
 
 .active button{
+  background: rgba(25, 25, 25, 0.7);
+}
+
+#addCollectionNav{
+  float: right;
+  margin-right: 0px;
+  border-radius: 5px;
+  background: transparent;
+  box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+}
+
+#addCollectionNav:hover{
   background: rgba(25, 25, 25, 0.7);
 }
 
@@ -99,9 +165,45 @@
 
 
 
-/* Options */
+
+/* Collections */
+
+.xButtons{
+  font-size: 28px;
+  font-weight: bold;
+  color: grey;
+  background: none;
+  border-style: none;
+}
+
+.xButtons:hover{
+  color: white;
+}
+
+.aUrl button{
+  display: inline-block;
+  background: transparent;
+  outline: none;
+  box-shadow: 0px 0px 0px transparent;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.aUrl button:hover{
+  background: rgba(255, 13, 13, 0.5);
+}
+
+.aUrl p{
+  display: inline-block;
+  margin: 2px;
+}
+
 
 #optionsContainer{
+  width: auto;
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
@@ -111,42 +213,80 @@
   position: absolute;
   right: 0;
   top: 0;
-  border-style: none;
   background: none;
   padding: 10px;
-  color: white;
+  border: 1px solid rgba(209, 209, 209, 0.0);
 }
 
-.optionX :hover{
-  cursor: pointer;
+.optionX:hover{
+  border: 1px solid rgba(209, 209, 209, 1.0);
+  color: rgb(209, 209, 209);
 }
 
 .optionImageBox{
   position: relative;
+  background-color: rgba(25, 25, 25, 0.7);
+  padding: 10px 0px 0px 0px;
 }
 
-.optionAdd{
-  display: block;
+.optionImage{
+  padding: 15px;
+}
+
+.optionImage:hover{
+  background: rgba(232, 232, 232, 0.1);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.optionPlusMinusBox{
+  display: flex;
+}
+
+.optionPlus{
   margin: 0px 0px 10px 0px;
   background: none;
   border-style: none;
+  font-weight: 700;
+  margin: 0px 5px 0px 5px;
+  padding: 5px;
+  border: 1px solid rgba(11, 145, 11, 0.0);
 }
 
-.optionAdd a{
-  text-align: right;
-  color: white;
+.optionPlus:hover{
+  color: green;
+  font-weight: 700;
+  border: 1px solid rgb(11, 145, 11);
 }
+
+.optionMinus{
+  margin: 0px 0px 10px 0px;
+  background: none;
+  font-weight: 700;
+  padding: 5px;
+  margin: 0px 5px 0px 5px;
+  border-style: none;
+  border: 1px solid rgb(143, 13, 13, 0.0);
+}
+
+.optionMinus:hover{
+  border: 1px solid rgb(200, 13, 13, 1.0);
+  font-weight: 700;
+  color: rgb(200, 13, 13, 1.0);
+}
+
+
 
 #optionsContainer{
-  width: 80%;
+  width: 90%;
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  padding: 0px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 25px;
 }
 
 #optionsContainer li{
-  margin: 0px 5px 0px 5px;
+  margin: 5px;
 }
 
 .optionTypeText{
@@ -159,7 +299,7 @@
 .optionContents{
   min-height: 100px;
   background-color: rgba(232, 232, 232, 0.6);
-  padding: 15px 0px 15px 0px;
+  padding: 5px 0px 5px 0px;
   border-bottom-left-radius: 10px;
 }
 
@@ -168,10 +308,6 @@
   -moz-box-shadow: 10px 10px 12px 0px rgba(0,0,0,0.27);
   box-shadow: 10px 10px 12px 0px rgba(0,0,0,0.27);
   text-align: center;
-}
-
-.optionBoxTotal :hover{
-  cursor: pointer;
 }
 
 .optionBoxTotal img{
@@ -188,8 +324,9 @@
 
 /* Account Block */ 
 
-#account-flexbox-container{
-  color: white;
+.accountFlexboxes{
+  width: 50%;
+  margin: auto;
 }
 
 .accountHeaders{
@@ -198,14 +335,217 @@
   border: 2px solid grey;
   border-radius: 5px;
   padding: 5px 10px 5px 10px;
+  margin: 5px 0px 5px 0px;
 }
+
+#logoutButton{
+  background: none;
+  font-size: 48px;
+  margin: 10px;
+  padding: 15px 30px 15px 30px;
+}
+
+#logoutButton:hover{
+  background-color: rgba(25, 25, 25, 0.7);
+}
+
+#submitLocationButton{
+  width: 100%;
+  font-size: 18px;
+}
+
 
 /* Forms */
 
-#createNewOption{
+.formText{
+  color: white;
+  margin: 10px;
+  display: inline-block;
+}
+
+.submitButtons{
+  display: block;
+  color: white;
+  border: 2px solid grey;
+  border-radius: 5px;
+  margin: 5px 0px 5px 0px;
+  padding: 5px 10px 5px 10px;
+  background: rgba(25, 25, 25, 0.7);
+}
+
+.submitButtons:hover{
+  background: rgba(25, 25, 25, 0.9);
+  cursor: pointer;
+}
+
+/* --Account-- */
+
+.validation-errors-container{
+  color: rgba(255,255,255,0.7);
+  height: 25px;
+}
+
+.validation-errors-container ul{
+  list-style: none;
+  padding: 0;
+  margin: 2px;
   text-align: center;
 }
 
-.formField{
-  margin: 5px 10px 5px 0px;
+/*--CreateNew--*/
+
+#createNewOption{
+  background: rgba(25, 25, 25, 0.7);
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 13px;
+}
+
+#createNewOptionSubmits{
+  text-align: end;
+}
+
+#modalTop{
+  display: flex;
+  justify-content: space-between;
+}
+
+.modalContentAbout{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 3% auto;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 3px;
+  outline: none;
+  padding: 15px;
+}
+
+.modalOverlay{
+  background: url(/images/3452442.jpg) no-repeat center center fixed;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+#inputAddCollection{
+  width: 75%;
+  display: block;
+}
+
+#settingsLoggedInBlock{
+  width: 80%;
+  padding: 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+
+#settingsLoggedInBlock button{
+  display: block;
+}
+
+#settingsLoggedInBlock input{
+  background: none;
+  border-style: none;
+  color: white;
+  font-weight: 600;
+  display: inline-block;
+}
+
+#settingsLoggedInBlock div h1{
+  display: block;
+}
+
+/* Map */
+
+.myMap{
+  width: 500px;
+  height: 350px;
+}
+
+.coordInput{
+  text-align: center;
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 1250px){
+
+  #settingsLoggedInBlock{
+    flex-direction: column;
+    width: 90%;
+    padding: 10px;
+  }
+
+  #logoutButton{
+    margin-top: 125px;
+  }
+
+
+@media screen and (max-width: 950px){
+  #topBlockContainer{
+    flex-direction: column;
+  }
+
+  #titleBox{
+    margin: 25px auto;
+    order: -1;
+  }
+  
+  #titleTop{
+    font-size: 75px;
+  }
+  
+  #titleBottom{
+    font-size: 45px;
+  }
+
+  .myMap{
+    width: 350px;
+    height: 250px;
+  }
+
+}
+
+@media screen and (max-width: 550px){
+
+  #mainBlockContainer{
+    width: 95%;
+  }
+
+  #titleBox{
+    width: 90%;
+    margin: 5px auto;
+  }
+
+  #titleTop{
+    font-size: 50px;
+  }
+  
+  #titleBottom{
+    font-size: 30px;
+  }
+
+}
+
+@media screen and (max-width: 400px){
+
+  .navButton img{
+    width: 32px;
+    padding: 5px;
+  }
+
+  .myMap{
+    width: 250px;
+    height: 150px;
+  }
+
+ }
 }

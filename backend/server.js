@@ -24,21 +24,20 @@ database.once("open", () => {
 
 /* MiddleWare */
 
-app.use(cors()) /* Needed to allow responses from some websites to be validated */
+app.use(cors())
 
 app.use(bodyParser.json())
 
 
-
 /* Routing */
 
+/* -- Login -- */
 app.get('/account/login/:username/:password', (req, res) => {
     console.log("Logging in.....")
-    userInfoModel.find({username: req.params.username, password: req.params.password}, (error, user) => {
+    Models.userInfoModel.find({username: req.params.username, password: req.params.password}, (error, user) => {
         if(error){
             console.log("Server side error: " + error)
         } else {
-            console.log("Found something...")
             res.json({
                 user
             })
@@ -46,62 +45,156 @@ app.get('/account/login/:username/:password', (req, res) => {
     })
 })
 
+
+/* -- SignUp -- */
 app.post('/account/signup/:username/:password', (req, res) => {
-    let existingUser = null
-    userInfoModel.find({username: req.params.username, password: req.params.password}, (error, user) => {
+    console.log("Signing Up.....")
+    Models.userInfoModel.find({username: req.params.username}, (error, user) => {
         if(error){
+            res.json({
+                error
+            })
             console.log(error)
-        } else{
-            existingUser = user 
+        } else if(user !== undefined && user.length > 0){
+            res.status(205)
+            res.json({
+                info: "User already exists",
+                user
+            })
+        } else {
+            const newUser = new Models.userInfoModel({
+                username: req.params.username,
+                password: req.params.password
+            })
+            newUser.save(err => {
+                if(err){
+                    console.log("Server-side error: " + err)
+            }})
+            res.json({
+                newUser
+            })
         }
     })
-
-    if(existingUser === null){
-    const newUser = new Models.userInfoModel({
-        username: req.params.username,
-        password: req.params.password
-    })
-    newUser.save(err => {
-        if(err){
-            console.log("Server-side error: " + err)
-    }})
-    res.json({
-        submitted: newUser
-    })
-}
 })
 
-app.post('/addOption/:username/:type/:urls', (req, res) => {
-    /* find how to update to user's account */
-    const newOption = new Models.optionModel({
-        optionType: req.params.type,
-        urls: req.params.urls
-    })
-
-    userInfoModel.findOneAndUpdate({username: req.params.username}) /* this is not finished */
-
-    newOptions.save(err => {
+/* -- Update Collection -- */
+app.post('/account/updatecollection/:type/:username/:name/:url', (req, res) => {
+    console.log("Updating collection.....")
+    Models.userInfoModel.findOne({username: req.params.username}, (err, doc) => {
         if(err){
-            console.log("Server-side error: " + err)
+            return(
+            res.json({
+                err
+            }) )
+        } else {
+            if(req.params.type === "add"){
+                console.log("Here add")
+                console.log(doc)
+                doc.collections[req.params.name].urls.push(req.params.url)
+                } else if(req.params.type === "minus") {
+                    console.log("Here minus")
+                    doc.collections[req.params.name].urls.splice(doc.collections[req.params.name].urls.indexOf(req.params.url), 1)
+        }
+        doc.markModified('collections')
+        doc.save((err, product) => {
+            if(err){
+                console.log(err)
+            } else {
+                res.send(product)
+            }
+        } )
         }
     })
-    res.json({
-        submitted: newOption
-    })
 })
 
-app.post('updateOption/:username/:urls', (req, res) => {
-    /* learn how to update documents */
+/* -- Create Collection -- */
+app.post('/account/createcollection/:username/:name/:type/:urls', (req, res) => {
+    console.log("Adding collection.....")
+    Models.userInfoModel.findOne({username: req.params.username}, (err, doc) => {
+        if(err){
+            return(
+                res.json({
+                    error
+                })
+            )
+        } else {
+            console.log(req.params.urls)
+            doc.collections[req.params.name] = {
+                name: req.params.name,
+                collectionType: req.params.type,
+                urls: req.params.urls.split(",")
+                }
+            }
+            doc.markModified('collections')
+            console.log(doc.collections[req.params.name])
+            doc.save((err, result) => {
+                if(err){
+                    console.log(err)
+                } else {
+                    res.send(doc)
+                }
+            })
+        })
 })
 
-app.get('/weather/:lat/:long', async (req, res) => {
-    let data = await axios.get(`https://api.darksky.net/forecast/14869e5a43df1a312c2e8801f2070667/${req.params.lat},${req.params.long}`) 
+/* -- Delete Collection -- */
+app.post('/account/deletecollection/:username/:collectionName', (req, res) => {
+    console.log("Deleting collection.....")
+    Models.userInfoModel.findOne({username: req.params.username}, (err, doc) => {
+        if(err){
+            console.log(error)
+            res.json({
+                error
+            })
+        } else {
+            delete doc.collections[req.params.collectionName]
+            doc.markModified('collections')
+            doc.save((err, product) => {
+                if(err){
+                    res.send(err)
+                } else {
+                    res.send(product)
+                }
+            })
+        }}
+    )
+})
+
+
+
+/* -- Weather -- */
+app.get('/weather/:lat/:lng', async (req, res) => {
+    let data = await axios.get(`https://api.darksky.net/forecast/14869e5a43df1a312c2e8801f2070667/${req.params.lat},${req.params.lng}`) 
                         .then(responseData => {
-                            console.log("What up")
+                            console.log("Retrieving weather.....")
                             return responseData.data
                          })
                         .catch(error => console.log("Server side - Error was: " + error.toString()))
     res.json(data)     
 })
+
+
+/* -- Update Location -- */
+app.post('/weather/:user/:lat/:lng', (req, res) => {
+    console.log("Updating location.....")
+    Models.userInfoModel.findOne({username: req.params.user}, (err, doc) => {
+        if(err){
+            return(
+                res.send({
+                    err
+                })
+            )
+        } else {
+            doc.location = {lat: req.params.lat, lng: req.params.lng}
+            doc.save((err, product) => {
+                if(err){
+                    res.send(err)
+                } else {
+                    res.send(product)
+                }
+            })
+        }
+    })
+} )
 
 app.listen(port, () => console.log("Started up server on port 8080"))
