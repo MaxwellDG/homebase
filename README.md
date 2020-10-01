@@ -3,7 +3,7 @@
 A website meant to be used as a 'homepage' that aids productivity. 
 
 ## Description 
-I no longer wanted to be bombarded with all the ads, news headlines, and various other suggestions that plague the standard 'homepage'. Consequently, I created a homepage that contains none of the above. Instead of all the clutter, now the main focus is starting the task at hand. "Collections" of websites are present, that upon being clicked, open the predetermined set of websites in their own tabs. In addition, the local weather is present and the coordinated can be set to the user's liking.
+I no longer wanted to be bombarded with all the ads, news headlines, and various other suggestions that plague the standard 'homepage'. Consequently, I created my own version that contains none of the above. Instead of all the clutter, the main focus is prompting the task at hand. "Collections" of websites are present, that upon being clicked, open the predetermined set of websites in their own tabs. In addition, the local weather is present and the coordinates can be set to the user's liking.
 
 The website is not just for personal use, and a simple account can be created to save one's data. The account is saved in a database server, as well an in local storage.
 
