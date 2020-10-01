@@ -17,9 +17,15 @@ Only a name a password are required for registration. This is simply to have a r
 
 ### Customizable Collections
 
+![Collection_Photo](https://github.com/MaxwellDG/homebase/blob/master/public/collection.png?raw=true)
+
 Users can create their own Collection and/or alter the defaults. The "+" opens a field for adding a url, while the "-" enables deletion. 
 
 ### Location
+
+![Collection_Photo](https://github.com/MaxwellDG/homebase/blob/master/public/coords.png?raw=true)
+
+![Collection_Photo](https://github.com/MaxwellDG/homebase/blob/master/public/weatherresults.png?raw=true)
 
 The user's coordinates are sent as a GET request to the darksky.net API. Pertinent data is extracted from the response and added to the display for the user.
 
