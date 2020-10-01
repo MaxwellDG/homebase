@@ -11,7 +11,7 @@ The website is not just for personal use, and a simple account can be created to
 
 ### Simple Account Registration
 
-![User_Login_Photo](https://github.com/MaxwellDG/homebase/public/blob/master/account.png?raw=true)
+![User_Login_Photo](https://github.com/MaxwellDG/homebase/blob/master/account.png?raw=true)
 
 Only a name a password are required for registration. This is simply to have a reference to your desired settings in the database.
 
