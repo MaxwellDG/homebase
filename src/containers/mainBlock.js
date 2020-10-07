@@ -16,8 +16,8 @@ class MainBlock extends React.Component{
         return(
             <div id="mainBlock">
                 <Switch>
-                    <Route exact path='/account' render={ () => <SectionAccount />}/>
-                    <Route exact path='/' render={ () =>  <SectionHome /> }/>
+                    <Route exact path='/' render={ () => <SectionAccount />}/>
+                    <Route exact path='/home' render={ () =>  <SectionHome /> }/>
                     <Route component={ Section404 }/>
                 </Switch>
             </div>

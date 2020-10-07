@@ -81,7 +81,7 @@ class Login extends React.Component{
                     localStorage.setItem('location', JSON.stringify(response.data.user[0].location))
                     localStorage.setItem('urls', JSON.stringify(urlsObjects))
                
-                    history.push("/")
+                    history.push("/home")
                 } else {
                     console.log(response.data.user)
                 }

@@ -19,8 +19,8 @@ class NavBar extends Component{
         return(
             <span>
                 <ol id="navButtonContainer">
-                    { this.props.user ? <NavButton img="images/icons8-home-128.png" path="/"/> : null }
-                    <NavButton img="images/icons8-settings-128.png" path="/account" />
+                    { this.props.user ? <NavButton img="images/icons8-home-128.png" path="/home"/> : null }
+                    <NavButton img="images/icons8-settings-128.png" path="/" />
                     { this.props.user ? addCollectionButton : null }
                 </ol> 
             </span>

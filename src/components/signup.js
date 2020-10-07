@@ -90,7 +90,7 @@ class SignUp extends React.Component{
                     localStorage.setItem('location', JSON.stringify(response.data.newUser.location))
                     localStorage.setItem('urls', JSON.stringify(urlsObjects))
                
-                    history.push("/")
+                    history.push("/home")
                 } else if(response.status === 205) {
                     let errs = this.state.errors
                     errs.duplicate = "Username already exists."
