@@ -23,7 +23,7 @@ class SectionHome extends React.Component{
     /* Handle database updates. Upon successful response, call the appropriate Redux actiontype */
     updateCollection(url, collectionName, updateType, index){
         console.log(this.props.user)
-        axios.post(`/account/updatecollection/${updateType}/${this.props.user}/${collectionName}/${url}`)
+        axios.post(`http://ec2-18-222-230-82.us-east-2.compute.amazonaws.com/account/updatecollection/${updateType}/${this.props.user}/${collectionName}/${url}`)
             .then(response => {
                 if(response.status === 200){
                     if(updateType === "add"){
@@ -52,7 +52,7 @@ class SectionHome extends React.Component{
     /* Delete the collection from database. Upon successful response, delete from Redux */
     deleteTheCollection(collectionName){
         console.log(collectionName)
-        axios.post(`/account/deletecollection/${this.props.user}/${collectionName}`)
+        axios.post(`http://ec2-18-222-230-82.us-east-2.compute.amazonaws.com/account/deletecollection/${this.props.user}/${collectionName}`)
             .then(response => {
                 this.props.setUserCollections(response.data.collections)
                 localStorage.setItem('collections', JSON.stringify(response.data.collections))

@@ -1,14 +1,7 @@
 import React from 'react'
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api'
-
-const containerStyle = {
-    width: "300px",
-    height: "300px"
-  };
-  
+ 
 export default function GoogleMaps(props){
-
-  let windowSize = window.innerWidth 
 
   const{ coords, coordChange } = props
 

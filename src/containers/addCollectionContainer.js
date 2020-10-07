@@ -13,7 +13,7 @@ class AddCollectionContainer extends React.Component{
     }
 
     addCollection(name, type, urls){
-        axios.post(`/account/createcollection/${this.props.user}/${name}/${type}/${urls}`)
+        axios.post(`http://ec2-18-222-230-82.us-east-2.compute.amazonaws.com/account/createcollection/${this.props.user}/${name}/${type}/${urls}`)
             .then(response => {
                 if(response.status === 200){
                     const allCollections = response.data.collections

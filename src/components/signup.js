@@ -69,7 +69,7 @@ class SignUp extends React.Component{
     /* POST request to database for signup. With successful response, set Redux state and set LocalStorage */
     handleSubmit = (event, history) => {
         if(this.state.Password === this.state.PasswordConfirm){
-          axios.post(`/account/signup/${this.state.Username}/${this.state.Password}`)
+          axios.post(`http://ec2-18-222-230-82.us-east-2.compute.amazonaws.com/account/signup/${this.state.Username}/${this.state.Password}`)
               .then(response => {
                 if(response.status === 200){
                     console.log(response)

@@ -36,7 +36,7 @@ class SectionAccount extends React.Component{
     }
 
     handleSetLocation(){
-        axios.post(`/weather/${this.props.user}/${this.state.lat}/${this.state.lng}`)
+        axios.post(`http://ec2-18-222-230-82.us-east-2.compute.amazonaws.com/weather/${this.props.user}/${this.state.lat}/${this.state.lng}`)
         .then(response => {
             if(response.status === 200){
                 this.props.fetchGetWeather(response.data.location)

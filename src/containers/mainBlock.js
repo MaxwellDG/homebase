@@ -5,6 +5,9 @@ import SectionHome from '../containers/sectionHome'
 import { Route, Switch } from 'react-router-dom'
 import Section404 from '../components/section404'
 import SectionAccount from '../containers/secitonAccount'
+import axios from 'axios'
+
+
 
 class MainBlock extends React.Component{
 

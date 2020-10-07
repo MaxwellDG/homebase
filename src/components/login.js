@@ -60,7 +60,7 @@ class Login extends React.Component{
 
     /* GET request from database for user. With successful response, change Redux state and set LocalStorage */
     handleLogin = (event, history) => {
-        axios.get(`/account/login/${this.state.Username}/${this.state.Password}`)
+        axios.get(`http://ec2-18-222-230-82.us-east-2.compute.amazonaws.com/account/login/${this.state.Username}/${this.state.Password}`)
             .then(response => {
                 console.log(response)
                 if(response.status === 200){
