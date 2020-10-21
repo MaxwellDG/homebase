@@ -13,9 +13,10 @@ class AddCollectionContainer extends React.Component{
     }
 
     addCollection(name, type, urls){
-        axios.post(`http://ec2-18-222-230-82.us-east-2.compute.amazonaws.com/account/createcollection/${this.props.user}/${name}/${type}/${urls}`)
+        axios.post(`https://api.homebase.design/account/createcollection/${this.props.user}/${name}/${type}/${urls}`)
             .then(response => {
                 if(response.status === 200){
+                    console.log(response)
                     const allCollections = response.data.collections
                     let urlsObjects = Object()
                     Object.keys(allCollections).forEach(collection => {

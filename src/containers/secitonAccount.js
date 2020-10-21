@@ -36,12 +36,13 @@ class SectionAccount extends React.Component{
     }
 
     handleSetLocation(){
-        axios.post(`http://ec2-18-222-230-82.us-east-2.compute.amazonaws.com/weather/${this.props.user}/${this.state.lat}/${this.state.lng}`)
+        axios.post(`https://api.homebase.design/weather/${this.props.user}/${this.state.lat}/${this.state.lng}`)
         .then(response => {
             if(response.status === 200){
-                this.props.fetchGetWeather(response.data.location)
-                this.props.setLocation({lat: response.data.location.lat, lng: response.data.location.lng})
-                localStorage.setItem('location', JSON.stringify(response.data.location))
+                const data = response.data.location
+                this.props.fetchGetWeather(data)
+                this.props.setLocation({lat: data.lat, lng: data.lng})
+                localStorage.setItem('location', JSON.stringify(data.location))
             }
         }).catch(reason => {
             console.log(reason)
@@ -52,6 +53,7 @@ class SectionAccount extends React.Component{
         this.props.setUser(null, [], [])
         this.props.setUserCollections(null)
         this.props.setCollectionUrls(null)
+        this.props.setLocation({lat: 43.65121272925317,lng: -79.40022880021183})
         localStorage.clear()
     }
 

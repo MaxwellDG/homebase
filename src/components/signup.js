@@ -69,25 +69,26 @@ class SignUp extends React.Component{
     /* POST request to database for signup. With successful response, set Redux state and set LocalStorage */
     handleSubmit = (event, history) => {
         if(this.state.Password === this.state.PasswordConfirm){
-          axios.post(`http://ec2-18-222-230-82.us-east-2.compute.amazonaws.com/account/signup/${this.state.Username}/${this.state.Password}`)
+          axios.post(`https://api.homebase.design/account/signup/${this.state.Username}/${this.state.Password}`)
               .then(response => {
                 if(response.status === 200){
                     console.log(response)
-                    const allCollections = response.data.newUser.collections
+                    const theUser = response.data.newUser
+                    const allCollections = theUser.collections
                     let urlsObjects = Object()
                     Object.keys(allCollections).forEach(collection => {
                         urlsObjects[collection] = Object({urls: allCollections[collection].urls})
                     })          
                     /* setting Reducers */
-                    this.props.setUser(response.data.newUser.username, response.data.newUser.location, true) 
+                    this.props.setUser(theUser.username, theUser.location, true) 
                     this.props.setUserCollections(allCollections)
                     this.props.setCollectionUrls(urlsObjects) 
 
                     /* setting localStorage */
-                    localStorage.setItem("user", response.data.newUser.username)
-                    localStorage.setItem("password", response.data.newUser.password)
+                    localStorage.setItem("user", theUser.username)
+                    localStorage.setItem("password", theUser.password)
                     localStorage.setItem("collections", JSON.stringify(allCollections))
-                    localStorage.setItem('location', JSON.stringify(response.data.newUser.location))
+                    localStorage.setItem('location', JSON.stringify(theUser.location))
                     localStorage.setItem('urls', JSON.stringify(urlsObjects))
                
                     history.push("/home")

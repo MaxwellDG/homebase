@@ -37,7 +37,6 @@ class Login extends React.Component{
         switch(field) {
             case 'Username':
                 usernameValid = value.match(/^[\w]+$/i) /* change this to your liking */
-                console.log(usernameValid)
                 errors.Username = usernameValid ? "" : 'Username is invalid. Alphanumerical characters only.'
                 break;
             case 'Password':
@@ -58,32 +57,34 @@ class Login extends React.Component{
         this.setState({formValid: this.state.usernameValid && this.state.passwordValid})
     }
 
+
     /* GET request from database for user. With successful response, change Redux state and set LocalStorage */
     handleLogin = (event, history) => {
-        axios.get(`http://ec2-18-222-230-82.us-east-2.compute.amazonaws.com/account/login/${this.state.Username}/${this.state.Password}`)
+        axios.get(`https://api.homebase.design/account/login/${this.state.Username}/${this.state.Password}`)
             .then(response => {
-                console.log(response)
                 if(response.status === 200){
-                    const allCollections = response.data.user[0].collections
+                    const theUser = response.data.user[0]
+                    console.log(response)
+                    const allCollections = theUser.collections
                     let urlsObjects = Object()
                     Object.keys(allCollections).forEach(collection => {
                         urlsObjects[collection] = Object({urls: allCollections[collection].urls})
                     })          
                     /* setting Reducers */
-                    this.props.setUser(response.data.user[0].username, response.data.user[0].location, true) 
+                    this.props.setUser(theUser.username, theUser.location, true) 
                     this.props.setUserCollections(allCollections)
                     this.props.setCollectionUrls(urlsObjects) 
 
                     /* setting localStorage */
-                    localStorage.setItem("user", response.data.user[0].username)
-                    localStorage.setItem("password", response.data.user[0].password)
+                    localStorage.setItem("user", theUser.username)
+                    localStorage.setItem("password", theUser.password)
                     localStorage.setItem("collections", JSON.stringify(allCollections))
-                    localStorage.setItem('location', JSON.stringify(response.data.user[0].location))
+                    localStorage.setItem('location', JSON.stringify(theUser.location))
                     localStorage.setItem('urls', JSON.stringify(urlsObjects))
                
                     history.push("/home")
                 } else {
-                    console.log(response.data.user)
+                    console.log(response.user)
                 }
             }).catch(reason => {
                 console.log("Client-side error: " + reason)

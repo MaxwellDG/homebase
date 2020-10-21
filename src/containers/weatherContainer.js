@@ -5,8 +5,7 @@ import * as ActionTypes from '../actions/action'
 class WeatherContainer extends React.Component{
 
     componentDidMount(){
-        let coords = this.props.location ? this.props.location : {lat: 43.65121272925317, lng: -79.40022880021183}
-        this.props.fetchGetWeather(coords)
+         this.props.fetchGetWeather(this.props.location)
     }
 
     render(){

@@ -20,7 +20,7 @@ export const getWeather = (weather) => {
 
 export const fetchGetWeather = (coords) => {
     return (dispatch) => {
-    axios.get(`http://ec2-18-222-230-82.us-east-2.compute.amazonaws.com/weather/${coords.lat}/${coords.lng}`)
+    axios.get(`https://api.homebase.design/weather/${coords.lat}/${coords.lng}`)
          .then(response => {
             const data = response.data
             const weatherObj = {

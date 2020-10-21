@@ -76,7 +76,8 @@ export default class AddOptionContainer extends React.Component{
             shouldCloseOnOverlayClick={ true }
             onRequestClose={ () => this.props.toggleDisplay(false)}
             className={"modalContentAbout"}
-            overlayClassName={"modalOverlay"}>
+            overlayClassName={"modalOverlay"}
+            ariaHideApp={false}>
 
             <div id="createNewOption">
             <div id="modalTop">

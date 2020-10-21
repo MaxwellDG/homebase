@@ -7,8 +7,8 @@ const userState = {
     password: localStorage.getItem('password'),
     weather: {},
     location: storageLocation ? storageLocation : {
-        lat: 0,
-        lng: 0
+        lat: 43.65121272925317,
+        lng: -79.40022880021183
     }
 }
 
@@ -19,7 +19,6 @@ export default function UserReducer(prevState=userState, actionObj){
             newState.weather = actionObj.weather
             return newState
         case ActionTypes.SET_USER:
-            console.log("Reducer " + actionObj.location.lng)
             newState.userLoggedIn = actionObj.username
             newState.location = actionObj.location
             newState.loggedIn = actionObj.bool
