@@ -1,5 +1,7 @@
 import * as ActionTypes from '../actions/action'
 
+console.log(JSON.parse(localStorage.getItem('location')))
+
 let storageLocation = JSON.parse(localStorage.getItem('location'))
 
 const userState = {

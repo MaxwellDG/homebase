@@ -64,7 +64,6 @@ class Login extends React.Component{
             .then(response => {
                 if(response.status === 200){
                     const theUser = response.data.user[0]
-                    console.log(response)
                     const allCollections = theUser.collections
                     let urlsObjects = Object()
                     Object.keys(allCollections).forEach(collection => {
@@ -74,6 +73,8 @@ class Login extends React.Component{
                     this.props.setUser(theUser.username, theUser.location, true) 
                     this.props.setUserCollections(allCollections)
                     this.props.setCollectionUrls(urlsObjects) 
+
+                    console.log(theUser.location)
 
                     /* setting localStorage */
                     localStorage.setItem("user", theUser.username)

@@ -28,7 +28,6 @@ class SectionAccount extends React.Component{
     }
 
     handleCoordChange(coords){
-        console.log(coords)
         this.setState({
             lat: coords.latLng.lat(),
             lng: coords.latLng.lng()
@@ -40,9 +39,10 @@ class SectionAccount extends React.Component{
         .then(response => {
             if(response.status === 200){
                 const data = response.data.location
+                console.log(data)
                 this.props.fetchGetWeather(data)
                 this.props.setLocation({lat: data.lat, lng: data.lng})
-                localStorage.setItem('location', JSON.stringify(data.location))
+                localStorage.setItem('location', JSON.stringify(data))
             }
         }).catch(reason => {
             console.log(reason)

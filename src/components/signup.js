@@ -84,6 +84,8 @@ class SignUp extends React.Component{
                     this.props.setUserCollections(allCollections)
                     this.props.setCollectionUrls(urlsObjects) 
 
+                    console.log(theUser.location)
+
                     /* setting localStorage */
                     localStorage.setItem("user", theUser.username)
                     localStorage.setItem("password", theUser.password)
